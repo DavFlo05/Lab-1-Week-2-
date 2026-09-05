@@ -12,10 +12,23 @@ public class ChessPiece : MonoBehaviour
 {
     public PieceType pieceType;
     private SpriteRenderer spriteRenderer;
+    public Color pieceColor = Color.white;
+    private void DrawMove(Vector3 offset)
+    {
+        Gizmos.DrawWireCube(transform.position + offset, Vector3.one * 0.5f);
+    }
+
+    private void DrawPawnMoves()
+    {
+        DrawMove(Vector3.up);
+    }
 
     private void OnValidate()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+            return;
+        spriteRenderer.color = pieceColor;
 
         switch (pieceType)
         {
