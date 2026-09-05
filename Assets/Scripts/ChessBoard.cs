@@ -11,6 +11,8 @@ public class ChessBoard : MonoBehaviour
             for (int y = 0; y < 8; y++)
             {
                 Vector3 squarePosition = transform.position + new Vector3(x * squareSize, y * squareSize, 0);
+
+                Gizmos.DrawWireCube( squarePosition, new Vector3(squareSize, squareSize, 0.01f));
             }
         }
     }
