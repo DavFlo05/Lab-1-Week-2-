@@ -13,9 +13,21 @@ public class ChessPiece : MonoBehaviour
     public PieceType pieceType;
     private SpriteRenderer spriteRenderer;
     public Color pieceColor = Color.white;
+    public float borderSize = 1f;
     private void DrawMove(Vector3 offset)
     {
-        Gizmos.DrawWireCube(transform.position + offset, Vector3.one * 0.5f);
+        Vector3 movePosition = transform.position + offset;
+
+        if (movePosition.x < 0 || movePosition.x > 7 ||
+            movePosition.y < 0 || movePosition.y > 7)
+        {
+            return;
+        }
+
+        Gizmos.DrawWireCube(
+            movePosition,
+            Vector3.one * 0.5f
+        );
     }
     private void OnDrawGizmosSelected()
     {
