@@ -17,12 +17,90 @@ public class ChessPiece : MonoBehaviour
     {
         Gizmos.DrawWireCube(transform.position + offset, Vector3.one * 0.5f);
     }
+    private void OnDrawGizmosSelected()
+    {
+        switch (pieceType)
+        {
+            case PieceType.Pawn:
+                DrawPawnMoves();
+                break;
 
+            case PieceType.Rook:
+                DrawRookMoves();
+                break;
+
+            case PieceType.Knight:
+                DrawKnightMoves();
+                break;
+
+            case PieceType.Bishop:
+                DrawBishopMoves();
+                break;
+
+            case PieceType.Queen:
+                DrawQueenMoves();
+                break;
+
+            case PieceType.King:
+                DrawKingMoves();
+                break;
+        }
+    }
     private void DrawPawnMoves()
     {
         DrawMove(Vector3.up);
     }
+    private void DrawRookMoves()
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            DrawMove(Vector3.up * i);
+            DrawMove(Vector3.down * i);
+            DrawMove(Vector3.left * i);
+            DrawMove(Vector3.right * i);
+        }
+    }
+    private void DrawBishopMoves()
+    {
+        for (int i = 1; i < 8; i++)
+        {
+            DrawMove(new Vector3(i, i, 0));
+            DrawMove(new Vector3(-i, i, 0));
+            DrawMove(new Vector3(i, -i, 0));
+            DrawMove(new Vector3(-i, -i, 0));
+        }
+    }
+    private void DrawQueenMoves()
+    {
+        DrawRookMoves();
+        DrawBishopMoves();
+    }
+    private void DrawKingMoves()
+    {
+        DrawMove(Vector3.up);
+        DrawMove(Vector3.down);
+        DrawMove(Vector3.left);
+        DrawMove(Vector3.right);
 
+        DrawMove(new Vector3(1, 1, 0));
+        DrawMove(new Vector3(-1, 1, 0));
+        DrawMove(new Vector3(1, -1, 0));
+        DrawMove(new Vector3(-1, -1, 0));
+    }
+    private void DrawKnightMoves()
+    {
+        DrawMove(new Vector3(1, 2, 0));
+        DrawMove(new Vector3(-1, 2, 0));
+
+        DrawMove(new Vector3(1, -2, 0));
+        DrawMove(new Vector3(-1, -2, 0));
+
+        DrawMove(new Vector3(2, 1, 0));
+        DrawMove(new Vector3(2, -1, 0));
+
+        DrawMove(new Vector3(-2, 1, 0));
+        DrawMove(new Vector3(-2, -1, 0));
+    }
     private void OnValidate()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
